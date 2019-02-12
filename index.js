@@ -28,6 +28,7 @@ try{
 
   require('./routes/authRoutes')(app);
   require('./routes/blogRoutes')(app);
+  require('./routes/uploadRoutes')(app);
 
   // make sure server serves react client files in both production mode and ci
   if (['production', 'ci'].includes(process.env.NODE_ENV)) {
