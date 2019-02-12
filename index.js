@@ -29,7 +29,7 @@ try{
   require('./routes/authRoutes')(app);
   require('./routes/blogRoutes')(app);
 
-  // make sure server serves reac client files in both production mode and ci
+  // make sure server serves react client files in both production mode and ci
   if (['production', 'ci'].includes(process.env.NODE_ENV)) {
     app.use(express.static('client/build'));
 
