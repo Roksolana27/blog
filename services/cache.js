@@ -48,28 +48,3 @@ module.exports = {
 };
 
 
-//
-// //Do we have any cached data in redis related to this query
-// const cachedBlogs = await client.get(req.user.id);
-// //if yes, then respond to the request right away and return
-// if (cachedBlogs) {
-//   console.log('serving from cache');
-//   return res.send(JSON.parse(cachedBlogs));
-// }
-//
-// //if no, we need to respond to request and update our cache to store the data
-// const blogs = await Blog.find({ _user: req.user.id });
-// console.log('serving from db');
-// res.send(blogs);
-// client.set(req.user.id, JSON.stringify(blogs));
-
-
-// to revert session string to it's previous look
-// const session = 'eyJwYXNzcG9ydCI6eyJ1c2VyIjoiNWM1MWFlMWUzNDdmMDkzYTQwZGY0YmVhIn19'
-// const Buffer = require('safe-buffer').Buffer;
-//
-//decode session into JS object
-// Buffer.from(session, 'base64').toString('utf8')
-//
-// result of decoding is this
-// '{"passport":{"user":"5c51ae1e347f093a40df4bea"}}'

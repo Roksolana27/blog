@@ -22,21 +22,26 @@ module.exports = app => {
     res.send(blogs);
   });
 
-  app.post('/api/blogs', requireLogin, cleanCache, async (req, res) => {
-    const { title, content } = req.body;
+  try {
+    app.post('/api/blogs', requireLogin, cleanCache, async (req, res) => {
+      const {title, content, imageUrl} = req.body;
 
-    const blog = new Blog({
-      title,
-      content,
-      _user: req.user.id
+      const blog = new Blog({
+        imageUrl,
+        title,
+        content,
+        _user: req.user.id
+      });
+
+      try {
+        await blog.save();
+        res.send(blog);
+      } catch (err) {
+        res.send(400, err);
+      }
+
     });
-
-    try {
-      await blog.save();
-      res.send(blog);
-    } catch (err) {
-      res.send(400, err);
-    }
-
-  });
+  } catch(err){
+    console.log('POST ERROR:', err);
+  }
 };
