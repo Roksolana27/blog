@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const keys = require('./config/keys');
+const logger = require('./logger/index');
 
 require('./models/User');
 require('./models/Blog');
@@ -41,9 +42,16 @@ try{
   }
 
   const PORT = process.env.PORT || 5000;
+
   app.listen(PORT, () => {
-    console.log(`Listening on port`, PORT);
+    logger.log({
+      level: 'info',
+      message: `Listening on port ${PORT}`
+    });
   });
 }catch(e){
-  console.log('Error: ', e);
+  logger.error({
+    level: 'error',
+    message: e
+  });
 }
