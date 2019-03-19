@@ -16,12 +16,17 @@ RUN npm install -g nodemon
 RUN mkdir -p /docker && chown node:node /docker -R
 
 USER node
-ADD package.json /docker/package.json
-RUN cd /docker && npm install
 
 # Define working directory
 WORKDIR /docker
-ADD . /docker
+
+ADD package.json .
+
+COPY . .
+
+RUN npm install --quiet
+
+#RUN ln -s ./node_modules node_modules
 
 # Expose port
 EXPOSE  5000
