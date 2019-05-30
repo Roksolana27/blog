@@ -1,6 +1,35 @@
 version: '2'
 services:
-  app:
-    build: .
+  server:
+    build: ./server
+    depends_on:
+      - redis
+      - mongo
+    links:
+      - redis
+      - mongo
+    environment:
+      - REDIS_URL=redis://cache
+      - PORT=5000
+      - NODE_ENV=development
     ports:
       - 5000:5000
+    restart: always
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+  mongo:
+    restart: always
+    image: mongo:latest
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: cache
+    expose:
+      - 6379
+    ports:
+      - 6379:6379
